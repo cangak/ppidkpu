@@ -44,23 +44,18 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(url));
                 startActivity(intent);
+                webView.goBack();
+
                 return true;
             }
             return false;
         }
     }
     public void onBackPressed() {
-
-        new AlertDialog.Builder(this)
-                .setMessage("Are you sure you want to exit?")
-                .setIcon(R.mipmap.ic_launcher)
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        MainActivity.this.finish();
-                    }
-                })
-                .setNegativeButton("No", null)
-                .show();
+        if (webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
